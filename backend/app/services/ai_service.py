@@ -7,8 +7,11 @@ import google.generativeai as genai
 BASE_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(BASE_DIR / ".env")
 
+API_KEY = os.getenv("GEMINI_API_KEY")
 
+print("Gemini key loaded:", bool(API_KEY))
 
+genai.configure(api_key=API_KEY)
 
 
 def generate_response(message: str, user_id="user1"):
