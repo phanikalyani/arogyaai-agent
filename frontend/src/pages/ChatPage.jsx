@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import ChatBox from "../components/ChatBox";
 import { sendMessage } from "../services/api";
+import MapView from "../components/MapView";   
+
 
 function ChatPage() {
   const [messages, setMessages] = useState([]);
+  const [showMap, setShowMap] = useState(false);
 
   const handleSend = async (text) => {
     const userMsg = { text, sender: "user" };
