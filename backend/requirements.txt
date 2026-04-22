@@ -1,0 +1,9 @@
+<<<<<<< HEAD
+=======
+
+fastapi
+uvicorn
+python-dotenv
+sqlalchemy
+passlib
+>>>>>>> 5da3308c1982b314d1a8fcd7b10816d12c3f4e40
