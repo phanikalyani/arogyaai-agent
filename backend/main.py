@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
 # ✅ Database
 from app.db import Base, engine
 
@@ -21,9 +21,11 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 # ✅ CORS (frontend connection)
+frontend = os.getenv("FRONTEND_URL", "*")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[frontend],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
