@@ -76,5 +76,23 @@ function App() {
     </BrowserRouter>
   );
 }
-
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  window.location.href = "/login";
+};
+<button
+  onClick={handleLogout}
+  style={{
+    padding: "8px 16px",
+    border: "none",
+    borderRadius: "10px",
+    background: "#ef4444",
+    color: "white",
+    fontWeight: "600",
+    cursor: "pointer"
+  }}
+>
+  Logout
+</button>
 export default App;
