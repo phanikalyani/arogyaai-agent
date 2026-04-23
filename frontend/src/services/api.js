@@ -1,11 +1,15 @@
 import axios from "axios";
 
-export const sendMessage = async (message) => {
-  const user_id = localStorage.getItem("user_id");
+const API = axios.create({
+  baseURL: "https://arogyaai-agent.onrender.com",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-  const res = await axios.post("http://localhost:8000/chat", {
-    message,
-    user_id,
+export const sendMessage = async (text) => {
+  const res = await API.post("/chat", {
+    message: text,
   });
 
   return res.data;
