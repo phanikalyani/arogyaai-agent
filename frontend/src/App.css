@@ -1,11 +1,101 @@
-
-.chat-box {
-  height: 500px;
-  overflow-y: auto;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.message {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  line-height: 1.5;
+/* Body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0ea5e9);
+  min-height: 100vh;
+  color: #111827;
+}
+
+/* Root */
+#root {
+  min-height: 100vh;
+}
+
+/*
+/* Links */
+a {
+  text-decoration: none;
+}
+
+/* Main page container */
+.app-container {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+/* Card */
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  padding: 24px;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* Inputs */
+input,
+textarea {
+  outline: none;
+  border: 1px solid #cbd5e1;
+  transition: 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 12 ;
+   }
+
+  .card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  body {
+    background: linear-gradient(180deg, #0f172a, #0ea5e9);
+  }
 }
