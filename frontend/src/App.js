@@ -1,66 +1,61 @@
+import React from "react";
+import "./App.css";
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+
 import ChatPage from "./pages/ChatPage";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 
 function Navbar() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
     navigate("/login");
   };
-
-  const isLoggedIn = localStorage.getItem("token");
 
   return (
     <div
       style={{
-        padding: "12px 20px",
-        background: "#222",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        padding: "14px 28px",
+        background: "linear-gradient(90deg,#0ea5e9,#10b981)",
+        color: "white",
       }}
     >
-      {/* Left Side */}
-      <div style={{ display: "flex", gap: "15px" }}>
-        <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-          Home
-        </Link>
-
-        {!isLoggedIn && (
-          <>
-            <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
-              Login
-            </Link>
-
-            <Link to="/signup" style={{ color: "white", textDecoration: "none" }}>
-              Signup
-            </Link>
-          </>
-        )}
+      <div style={{ fontSize: "24px", fontWeight: "700" }}>
+        🩺 ArogyaAI
       </div>
 
-      {/* Right Side */}
-      {isLoggedIn && (
-        <button
-          onClick={handleLogout}
-          style={{
-            background: "#ef4444",
-            color: "white",
-            border: "none",
-            padding: "8px 14px",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontWeight: "600"
-          }}
-        >
-          Logout
-        </button>
-      )}
+      <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+        <Link to="/" style={{ color: "white" }}>Home</Link>
+
+        {!token ? (
+          <>
+            <Link to="/login" style={{ color: "white" }}>Login</Link>
+            <Link to="/signup" style={{ color: "white" }}>Signup</Link>
+          </>
+        ) : (
+          <button
+            onClick={handleLogout}
+            style={{
+              border: "none",
+              padding: "10px 16px",
+              borderRadius: "10px",
+              background: "white",
+              color: "#0ea5e9",
+              fontWeight: "700",
+              cursor: "pointer",
+            }}
+          >
+            Logout
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -80,3 +75,4 @@ function App() {
 }
 
 export default App;
+
