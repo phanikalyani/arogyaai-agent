@@ -10,7 +10,6 @@ try:
     import google.generativeai as genai
 except Exception:
     GEMINI_AVAILABLE = False
-
 app = FastAPI(
     title="ArogyaAI Backend",
     version="1.0.0"
@@ -38,10 +37,8 @@ class ChatRequest(BaseModel):
 # Gemini Config
 # -----------------------------
 gemini_model: Optional[object] = None
-
 if GEMINI_AVAILABLE:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
-
     if api_key:
         try:
             genai.configure(api_key=api_key)
@@ -53,7 +50,6 @@ if GEMINI_AVAILABLE:
 # -----------------------------
 def local_health_response(user_text: str) -> str:
     text = user_text.lower()
-
     if "fever" in text:
         return (
             "Fever may be caused by viral or bacterial infection.\n"
@@ -127,9 +123,8 @@ Avoid diagnosis certainty.
 Encourage doctor consultation when needed.
 User: {user_text}
 """
-          response = gemini_model.generate_content(prompt)
-
-            if response and getattr(response, "text", None):
+response = gemini_model.generate_content(prompt)
+if response and getattr(response, "text", None):
                 return response.text.strip()
         except Exception:
             pass
@@ -151,7 +146,6 @@ def health():
 @app.post("/chat")
 def chat(req: ChatRequest):
     reply = generate_response(req.message)
-
        return {
         "reply": reply
     }
@@ -160,9 +154,7 @@ def chat(req: ChatRequest):
 # -----------------------------
 if __name__ == "__main__":
     import uvicorn
-
     port = int(os.getenv("PORT", 8000))
-
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
