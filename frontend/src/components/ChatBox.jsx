@@ -1,55 +1,42 @@
 // ChatBox.jsx
-
 import React, { useState, useRef, useEffect } from "react";
-
 function ChatBox({ messages, onSend, loading = false }) {
   const [text, setText] = useState("");
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!text.trim() || loading) return;
-
     onSend(text);
     setText("");
   };
-
   const startVoice = () => {
     const SpeechRecognition =
       window.SpeechRecognition ||
       window.webkitSpeechRecognition;
-
     if (!SpeechRecognition) {
       alert(
         "Voice recognition is not supported in this browser."
       );
       return;
     }
-
     const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
     recognition.onresult = (event) => {
       const spokenText =
         event.results[0][0].transcript;
-
       setText(spokenText);
     };
-
     recognition.start();
     recognitionRef.current = recognition;
   };
-
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
     });
   }, [messages, loading]);
-
   return (
     <div
       style={{
@@ -89,10 +76,8 @@ function ChatBox({ messages, onSend, loading = false }) {
             • Diet for diabetes
           </div>
         )}
-
         {messages.map((msg, index) => {
           const isUser = msg.sender === "user";
-
           return (
             <div
               key={index}
@@ -140,7 +125,6 @@ function ChatBox({ messages, onSend, loading = false }) {
                     🩺 ArogyaAI
                   </div>
                 )}
-
                 {msg.text}
                 {/* Risk Badge */}
                 {msg.risk && (
@@ -163,7 +147,6 @@ function ChatBox({ messages, onSend, loading = false }) {
             </div>
           );
         })}
-
         {/* Typing Indicator */}
         {loading && (
           <div
@@ -191,7 +174,6 @@ function ChatBox({ messages, onSend, loading = false }) {
 
         <div ref={messagesEndRef} />
       </div>
-
       {/* Input Area */}
       <form
         onSubmit={handleSubmit}
@@ -261,5 +243,4 @@ function ChatBox({ messages, onSend, loading = false }) {
     </div>
   );
 }
-
 export default ChatBox;
