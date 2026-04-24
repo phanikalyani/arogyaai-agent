@@ -1,10 +1,9 @@
 // ChatPage.jsx
-
 import React, { useState } from "react";
 import ChatBox from "../components/ChatBox";
 import { sendMessage } from "../services/api";
-import jsPDF from "jspdf";
 
+import jsPDF from "jspdf";
 function ChatPage() {
   const [messages, setMessages] = useState([
     {
@@ -13,16 +12,12 @@ function ChatPage() {
       sender: "bot",
     },
   ]);
-
   const [loading, setLoading] = useState(false);
-
   const [history, setHistory] = useState(
     JSON.parse(localStorage.getItem("chatHistory")) || []
   );
-
   const getRiskLevel = (text) => {
     const input = text.toLowerCase();
-
     if (
       input.includes("chest pain") ||
       input.includes("breathing") ||
@@ -35,7 +30,6 @@ function ChatPage() {
         bg: "#fee2e2",
       };
     }
-
     if (
       input.includes("fever") ||
       input.includes("pain") ||
@@ -48,20 +42,18 @@ function ChatPage() {
         bg: "#fef3c7",
       };
     }
-
     return {
       label: "🟢 Low Risk",
       color: "#059669",
       bg: "#d1fae5",
     };
   };
-
   const handleSend = async (text) => {
     const userMessage = {
       text,
       sender: "user",
     };
-
+    
     setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
 
@@ -74,7 +66,7 @@ function ChatPage() {
         sender: "bot",
         risk,
       };
-
+      
       const updatedMessages = [...messages, userMessage, botMessage];
       setMessages(updatedMessages);
 
@@ -107,26 +99,19 @@ function ChatPage() {
     localStorage.removeItem("chatHistory");
     setHistory([]);
   };
-
   const downloadReport = () => {
     const doc = new jsPDF();
-
     doc.setFontSize(18);
     doc.text("ArogyaAI Consultation Report", 10, 15);
-
     doc.setFontSize(12);
-
     let y = 30;
-
     messages.forEach((msg) => {
       const sender =
         msg.sender === "user" ? "User" : "ArogyaAI";
-
       const lines = doc.splitTextToSize(
         `${sender}: ${msg.text}`,
         180
       );
-
       doc.text(lines, 10, y);
       y += lines.length * 8 + 5;
 
@@ -135,10 +120,8 @@ function ChatPage() {
         y = 20;
       }
     });
-
     doc.save("ArogyaAI_Report.pdf");
   };
-
   return (
     <div className="app-container">
       <div
@@ -188,7 +171,6 @@ function ChatPage() {
               No previous chats.
             </div>
           )}
-
           {history.map((item) => (
             <div
               key={item.id}
@@ -238,7 +220,6 @@ function ChatPage() {
             >
               🩺 ArogyaAI Smart Health Assistant
             </div>
-
             <div
               style={{
                 display: "flex",
@@ -347,5 +328,4 @@ function ChatPage() {
     </div>
   );
 }
-
 export default ChatPage;
