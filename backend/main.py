@@ -122,8 +122,7 @@ Give short, safe, practical health guidance.
 Avoid diagnosis certainty.
 Encourage doctor consultation when needed.
 User: {user_text}
-"""
-response = gemini_model.generate_content(prompt)
+"""response = gemini_model.generate_content(prompt)
 if response and getattr(response, "text", None):
                 return response.text.strip()
         except Exception:
