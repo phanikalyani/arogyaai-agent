@@ -30,4 +30,4 @@ def chat(req: ChatRequest):
         reply = "Seek urgent medical care immediately."
     else:
         reply = "Please describe your symptoms in more detail."
-    return {"reply": reply}
+    return {"reply": stay}
