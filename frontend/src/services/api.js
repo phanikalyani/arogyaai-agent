@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://arogyaai-agent.onrender.com",
+    timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
